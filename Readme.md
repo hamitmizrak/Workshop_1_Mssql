@@ -30,8 +30,11 @@ Hamit-Mizrak
 ```
 ---
 
-## Mssql SSMS (SQL Server Management Studio)
+## Mssql SSMS Server Name
 ```sh
+Server name: .
+Server name: localhost
+Server name: local
 
 ```
 ---

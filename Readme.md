@@ -1,5 +1,6 @@
 # Workshop Mssql 
-[]()
+
+[GitHub](https://github.com/hamitmizrak/Workshop_1_Mssql)
 ---
 
 
@@ -20,9 +21,12 @@ Step2 => Next => Next
 ---
 
 
-## Mssql SSMS (SQL Server Management Studio)
+## Whoami
 ```sh
+Terminal => whoami => 
 
+$ whoami
+Hamit-Mizrak
 ```
 ---
 

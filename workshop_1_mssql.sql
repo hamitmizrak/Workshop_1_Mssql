@@ -107,11 +107,24 @@ Mssql (Microsoft SQL Server)
 Geliştirici: Microsoft
 Platform:  Windows, Linux
 Kullanım Alanı: Küçük,Orta,Büyük ölçeklidir.
+Düşük Latans vardır(Tüm işlemler tek bir suunucuda gerçekleşir bundan dolayı işlem süreleri daha düşüktür.)
 Mssql (Microsoft SQL Server) Özellikleri
 - Zengin yönetim araçları SSMS
 - Güçlü veri bütünlüğünü sağlar.
 - Veri yedekleme, kurtama eşsizdir.
-- Performans
+- Yüksek Performansa sahiptir.
+- Yatay ve Dikey Ölçeklendirmeği destekler.
+- Veri Bütünlüğü mekanizması sağlamdır(ACID)
+- Rol tabanalı erişim kontrol özelliği vardır.
+- SSMS(SQL Server Management Studio) ile yönetim sağlarız.
+- Bulut desteği mevcuttur.
+
+
+SQL Server Microsoft ve Sybase tarafından ortalaşa geliştiriliyor. (1989)
+Dezavantaj: 
+    - Dağıtık Sistem karmaşıklığı
+    - Öğrenme Eğrisi biraz diktir.
+    - Sınırlı ölçeklendirme
 */
 
 

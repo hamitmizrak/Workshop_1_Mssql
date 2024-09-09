@@ -221,8 +221,6 @@ DCL: Data Control Language [Veri Kontol Dili (GRANT, REVOKE)]
 ---
 
 
-
-
 ## TCL
 ```sh
 TCL: Transaction Control Language [Veri İşlem Dili (TRANSACTION)]
@@ -232,8 +230,25 @@ TCL: Transaction Control Language [Veri İşlem Dili (TRANSACTION)]
 
 
 
+## Transaction
+```sh
 
-## Mssql SSMS (SQL Server Management Studio)
+```
+---
+
+## Relation
+```sh
+
+```
+---
+
+## Storage Procudure
+```sh
+
+```
+---
+
+## NF
 ```sh
 
 ```
@@ -241,7 +256,7 @@ TCL: Transaction Control Language [Veri İşlem Dili (TRANSACTION)]
 
 
 
-## Mssql SSMS (SQL Server Management Studio)
+## View
 ```sh
 
 ```
@@ -250,15 +265,10 @@ TCL: Transaction Control Language [Veri İşlem Dili (TRANSACTION)]
 
 
 
-## Mssql SSMS (SQL Server Management Studio)
+## Trigger
 ```sh
 
 ```
 ---
 
 
-## Mssql SSMS (SQL Server Management Studio)
-```sh
-
-```
----

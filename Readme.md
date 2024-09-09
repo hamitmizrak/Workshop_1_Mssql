@@ -190,7 +190,7 @@ SEQUEL: Structured English QUery Language
 
 
 
-## Mssql SSMS (SQL Server Management Studio)
+## DQL
 ```sh
 
 ```
@@ -198,7 +198,7 @@ SEQUEL: Structured English QUery Language
 
 
 
-## Mssql SSMS (SQL Server Management Studio)
+## DML
 ```sh
 
 ```
@@ -206,7 +206,7 @@ SEQUEL: Structured English QUery Language
 
 
 
-## Mssql SSMS (SQL Server Management Studio)
+## DDL
 ```sh
 
 ```
@@ -214,18 +214,19 @@ SEQUEL: Structured English QUery Language
 
 
 
-## Mssql SSMS (SQL Server Management Studio)
+## DCL:
 ```sh
-
+DCL: Data Control Language [Veri Kontol Dili (GRANT, REVOKE)]
 ```
 ---
 
 
 
 
-## Mssql SSMS (SQL Server Management Studio)
+## TCL
 ```sh
-
+TCL: Transaction Control Language [Veri İşlem Dili (TRANSACTION)]
+ 
 ```
 ---
 

@@ -60,6 +60,7 @@ NOT: Aşağıdaki RDBMS'ler Veritabanlarını oluşturmak, yönetmek, manipüle 
 - Neo4j
 */
 
+
 /*
 İlişkisel Veritabanları (RDBMS) Başlıca İşlevleri
 Veri tanımlama
@@ -68,6 +69,7 @@ Veri Güvenliği
 Veri Yedekleme, Geri Yükleme
 Çoklu Kullanıcılı Erişim
 */
+
 
 /*
 Veritabanı Avantajları
@@ -91,6 +93,7 @@ Mysql  Özelliği:
 	- Performansı iyidir.
 */
 
+
 /*
 Postgresql 
 Geliştirici: PostgreSQL Global Development Group
@@ -100,6 +103,7 @@ Postgresql  Özelllikleri:
 	- Ver türleri çok zengin
 	- JSON, XML veri türlerini dahi destekler.
 */
+
 
 /*
 Mssql (Microsoft SQL Server)
@@ -137,5 +141,34 @@ HAVING (Filtreleme) (Sum, Avg, Count, Min, Max)
 ORDER BY (Sıralama)
 */
 
+/*
+SQL:
+SQL (Structured Query Langualage)
+SQL 1970 IBM ilişkisel veri modeli üzerine inşa ederek şimdiki zamanımıza kadar gelmiştir.
+SEQUEL: Structured English QUery Language
+- Veri tabanı yönetim sistemlerinden(Mssql, Mysql, Postgresql vb) bunlar SQL üzerine inşaa edilmiştir.
+- SQL, ANSI(Amerikan National Standarts Instute) ve ISO(International Organization for Standardization) tarafından standart hale gelmiştir.
+ */
 
 use nortwind;
+
+/*
+DQL
+ */
+
+/*
+DML
+ */
+
+ /*
+DDL
+ */
+
+/*
+DCL: Data Control Language [Veri Kontol Dili (GRANT, REVOKE)]
+ */
+
+/*
+TCL: Transaction Control Language [Veri İşlem Dili (TRANSACTION)]
+ */
+

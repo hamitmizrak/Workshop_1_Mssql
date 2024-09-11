@@ -149,25 +149,69 @@ SEQUEL: Structured English QUery Language
 - Veri tabanı yönetim sistemlerinden(Mssql, Mysql, Postgresql vb) bunlar SQL üzerine inşaa edilmiştir.
 - SQL, ANSI(Amerikan National Standarts Instute) ve ISO(International Organization for Standardization) tarafından standart hale gelmiştir.
  */
-
+ 
+/*################################################################################ */
 use nortwind;
 
 /*
-DQL
+DQL (Data Query Language)
+SELECT sutunAdi FROM TabloADI; 
  */
+-- nortwind databasesinde Categories tablosundaki verileri listeleyim ? (Wilcard)
+SELECT * FROM Categories;
 
+-- nortwind databasesinde Categories tablosundaki verileri listeleyim ? (Bütün kolonları ekleyerek)
+SELECT CategoryID,CategoryName,Description,Picture FROM Categories;
+
+-- nortwind databasesinde Categories tablosundaki verileri listeleyim ? (Alias: Takma ad)
+SELECT cat.CategoryID, cat.CategoryName, cat.Description, cat.Picture FROM Categories as cat;
+SELECT cat.CategoryID, cat.CategoryName, cat.Description, cat.Picture FROM Categories cat; -- as yazmadım
+
+
+-- nortwind databasesinde Categories tablosundaki verilerden sadece `CategoryID,CategoryName` listeleyim ?
+SELECT CategoryID,CategoryName FROM Categories;
+
+-- nortwind databasesinde Categories tablosundaki verilerden CategoryID'si 3 ve yukarısındaki verileri listeleyim ?
+SELECT * FROM Categories WHERE CategoryID>=3;
+
+-- nortwind databasesinde Categories tablosundaki verilerden CategoryID'si 3 ve yukarısındaki verileri `CategoryID` küçükten büyüğe doğru listeleyim ?
+SELECT * FROM Categories WHERE CategoryID>=3;
+-- NOT: DEfaultta zaten küçükten büyüğe doğru bir sıralama söz konusudur
+SELECT * FROM Categories WHERE CategoryID>=3 ORDER BY CategoryID asc;
+
+-- nortwind databasesinde Categories tablosundaki verilerden CategoryID'si 3 ve yukarısındaki verileri `CategoryID` büyükten küçüğe doğru listeleyim ?
+-- 1.YOL
+SELECT * FROM Categories WHERE CategoryID>=3 ORDER BY CategoryID desc;
+-- 2.YOL (ALIAS)
+SELECT * FROM Categories as cat WHERE cat.CategoryID>=3 ORDER BY cat.CategoryID desc;
+
+/* OPERATOR */
+
+
+/* AGGREGATE */
+
+
+/* WHERE: BIL(Between, In, Like) */
+
+/*################################################################################ */
 /*
 DML
  */
 
+
+/*################################################################################ */
  /*
 DDL
  */
+ 
 
+/*################################################################################ */
 /*
 DCL: Data Control Language [Veri Kontol Dili (GRANT, REVOKE)]
  */
+ 
 
+/*################################################################################ */
 /*
 TCL: Transaction Control Language [Veri İşlem Dili (TRANSACTION)]
  */

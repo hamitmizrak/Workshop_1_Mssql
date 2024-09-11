@@ -298,18 +298,39 @@ SELECT COUNT(*) as 'TOPLAM SAYI' FROM Categories;
 
 /*#######################*/
 /*~~~~ CAST ~~~~*/
+select 5+6 as 'Toplam';
+select '5'+6 as 'Toplam';
+select 5+'6' as 'Toplam';
+select '5'+'6' as 'Toplam';
+
+select CAST ('5' as INTEGER)+'6' as 'Toplam';
+select 5 +CAST ('6' as INTEGER) as 'Toplam';
+select CAST ('5' as INTEGER) +CAST ('6' as INTEGER) as 'Toplam';
+
+/*#######################*/
+/*~~~~  SUBQUERY ~~~~*/
 
 
 /*#######################*/
-/*~~~~ WHERE: BIL(Between, In, Like) ~~~~*/
+/*~~~~ DATE ~~~~*/
 
 
 /*#######################*/
 /*~~~~ STRING ~~~~*/
 
 
-/*~~~~ DATE ~~~~*/
 
+
+
+/*#######################*/
+/*~~~~ WHERE: BIL(Between, In, Like) ~~~~*/
+
+
+
+
+
+/*################################################################################ */
+/*################################################################################ */
 /*################################################################################ */
 /*
 DML

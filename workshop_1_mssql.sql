@@ -185,13 +185,37 @@ SELECT * FROM Categories WHERE CategoryID>=3 ORDER BY CategoryID desc;
 -- 2.YOL (ALIAS)
 SELECT * FROM Categories as cat WHERE cat.CategoryID>=3 ORDER BY cat.CategoryID desc;
 
+/* TOP */
+
+
+/* SELECTOR(Seçiciler) */
+
+
+/* IS NULL */
+
+
+/* IS NOT NULL */
+
+
 /* OPERATOR */
+
+
+/* MATH */
 
 
 /* AGGREGATE */
 
 
+/* CAST*/
+
+
 /* WHERE: BIL(Between, In, Like) */
+
+
+/* STRING */
+
+
+/* DATE */
 
 /*################################################################################ */
 /*

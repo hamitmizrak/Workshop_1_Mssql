@@ -131,6 +131,15 @@ Dezavantaj:
 */
 
 /*
+SQL:
+SQL (Structured Query Langualage)
+SQL 1970 IBM ilişkisel veri modeli üzerine inşa ederek şimdiki zamanımıza kadar gelmiştir.
+SEQUEL: Structured English QUery Language
+- Veri tabanı yönetim sistemlerinden(Mssql, Mysql, Postgresql vb) bunlar SQL üzerine inşaa edilmiştir.
+- SQL, ANSI(Amerikan National Standarts Instute) ve ISO(International Organization for Standardization) tarafından standart hale gelmiştir.
+ */
+
+/*
 ~~~~~Mssql Syntax ~~~~~
 SELECT *, Distinct(Tekrarsız Veriler), Top(istenilen sayıda Listeleme), Min,Max,Avg(Ortalama),Sum, Count
 FROM `databaseAdi`.`tabloAdi`
@@ -141,15 +150,6 @@ HAVING (Filtreleme) (Sum, Avg, Count, Min, Max)
 ORDER BY (Sıralama)
 */
 
-/*
-SQL:
-SQL (Structured Query Langualage)
-SQL 1970 IBM ilişkisel veri modeli üzerine inşa ederek şimdiki zamanımıza kadar gelmiştir.
-SEQUEL: Structured English QUery Language
-- Veri tabanı yönetim sistemlerinden(Mssql, Mysql, Postgresql vb) bunlar SQL üzerine inşaa edilmiştir.
-- SQL, ANSI(Amerikan National Standarts Instute) ve ISO(International Organization for Standardization) tarafından standart hale gelmiştir.
- */
- 
 /*################################################################################ */
 use nortwind;
 
@@ -158,7 +158,12 @@ DQL (Data Query Language)
 SELECT sutunAdi FROM TabloADI; 
  */
 -- nortwind databasesinde Categories tablosundaki verileri listeleyim ? (Wilcard)
+-- 1.YOL
+use nortwind;
 SELECT * FROM Categories;
+-- 2.YOL (Eğer başka bir database üzerinden başka bir database ile çağırmak istiyorsak [databaseAdi].[dbo].[TabloAdi])
+SELECT * FROM [nortwind].[dbo].[Categories];
+
 
 -- nortwind databasesinde Categories tablosundaki verileri listeleyim ? (Bütün kolonları ekleyerek)
 SELECT CategoryID,CategoryName,Description,Picture FROM Categories;
@@ -186,15 +191,37 @@ SELECT * FROM Categories WHERE CategoryID>=3 ORDER BY CategoryID desc;
 SELECT * FROM Categories as cat WHERE cat.CategoryID>=3 ORDER BY cat.CategoryID desc;
 
 /* TOP */
+-- nortwind databasesinde Categories tablosundaki verilerden sadece CategoryID'sindeki baştan 4 elemanı listeleyelim ?
+SELECT * FROM Categories;
+SELECT TOP 4 * FROM Categories;
+SELECT TOP(4) * FROM Categories;
+SELECT TOP(4) * FROM Categories as cat ORDER BY cat.CategoryID ;
+
+-- nortwind databasesinde Categories tablosundaki verilerden sadece CategoryID'sindeki sonda 4 elemanı listeleyelim ?
+SELECT * FROM Categories;
+SELECT TOP 4  * FROM Categories ORDER BY CategoryID desc;
+SELECT TOP(4) * FROM Categories  ORDER BY CategoryID desc;
+SELECT TOP(4) * FROM Categories as cat ORDER BY cat.CategoryID desc;
 
 
 /* SELECTOR(Seçiciler) */
+-- 1.YOL
+use nortwind;
+SELECT * FROM Categories;
+-- 2.YOL (Eğer başka bir database üzerinden başka bir database ile çağırmak istiyorsak [databaseAdi].[dbo].[TabloAdi])
+SELECT * FROM [nortwind].[dbo].[Categories];
+SELECT * FROM [nortwind].[dbo].[Categories] as cat;
+SELECT cat.CategoryID,cat.CategoryName,cat.Description,cat.Picture FROM [nortwind].[dbo].[Categories] as cat;
 
 
-/* IS NULL */
+/* IS NULL: Customers */
+-- nortwind database Customers tablosundaki `Region` sutunudaki NULL olan değerleri listeleyelim ?
+SELECT * FROM [nortwind].[dbo].Customers as cat WHERE cat.Region IS NULL;
 
 
 /* IS NOT NULL */
+-- nortwind database Customers tablosundaki `Region` sutunudaki NULL olmayan değerleri listeleyelim ?
+SELECT * FROM [nortwind].[dbo].Customers as cat WHERE cat.Region IS NOT NULL ;
 
 
 /* OPERATOR */

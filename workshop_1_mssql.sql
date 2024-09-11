@@ -190,6 +190,7 @@ SELECT * FROM Categories WHERE CategoryID>=3 ORDER BY CategoryID desc;
 -- 2.YOL (ALIAS)
 SELECT * FROM Categories as cat WHERE cat.CategoryID>=3 ORDER BY cat.CategoryID desc;
 
+/*#######################*/
 /*~~~~ TOP: Veri Sınırla */
 -- nortwind databasesinde Categories tablosundaki verilerden sadece CategoryID'sindeki baştan 4 elemanı listeleyelim ?
 SELECT * FROM Categories;
@@ -203,6 +204,7 @@ SELECT TOP 4  * FROM Categories ORDER BY CategoryID desc;
 SELECT TOP(4) * FROM Categories  ORDER BY CategoryID desc;
 SELECT TOP(4) * FROM Categories as cat ORDER BY cat.CategoryID desc;
 
+/*#######################*/
 /*~~~~ DISTINCT: Tekrarsız Veri ~~~~*/
 SELECT * FROM Customers;
 -- nortwind databasesinde `Customers` tablosundaki ContactTitle sutunundaki verileri tekrarsız olarak gösteriniz ?
@@ -210,6 +212,7 @@ SELECT DISTINCT ContactTitle FROM Customers;
 SELECT DISTINCT cus.ContactTitle FROM Customers as cus;
 SELECT DISTINCT cus.ContactTitle FROM Customers  cus;
 
+/*#######################*/
 /*~~~~ SELECTOR(Seçiciler) */
 -- 1.YOL
 use nortwind;
@@ -219,17 +222,17 @@ SELECT * FROM [nortwind].[dbo].[Categories];
 SELECT * FROM [nortwind].[dbo].[Categories] as cat;
 SELECT cat.CategoryID,cat.CategoryName,cat.Description,cat.Picture FROM [nortwind].[dbo].[Categories] as cat;
 
-
+/*#######################*/
 /*~~~~ IS NULL: null değerleri göster ~~~~*/
 -- nortwind database Customers tablosundaki `Region` sutunudaki NULL olan değerleri listeleyelim ?
 SELECT * FROM [nortwind].[dbo].Customers as cat WHERE cat.Region IS NULL;
 
-
+/*#######################*/
 /*~~~~ IS NOT NULL:  null olmayan değerleri göster ~~~~*/
 -- nortwind database Customers tablosundaki `Region` sutunudaki NULL olmayan değerleri listeleyelim ?
 SELECT * FROM [nortwind].[dbo].Customers as cat WHERE cat.Region IS NOT NULL ;
 
-
+/*#######################*/
 /*~~~~ OPERATOR: Topla,çıkar,çarp,böl,kalan ~~~~*/
 /* + - * / %   */
 SELECT 8+2;
@@ -243,7 +246,7 @@ SELECT 8*2 as 'SONUÇ ÇARPMA';
 SELECT 8/2 as 'SONUÇ BÖLME';
 SELECT 8%2 as 'SONUÇ KALAN';
 
-
+/*#######################*/
 /*~~~~ MATH : Mathematics~~~~*/
 SELECT pi() as 'PI Sayısı';
 SELECT PI() as 'PI Sayısı';
@@ -262,16 +265,46 @@ SELECT cos(45) as 'COSINUS';
 SELECT tan(45) as 'TANJANT';
 SELECT cot(45) as 'COTANJANT';
 
-
+/*#######################*/
 /*~~~~ AGGREGATE ~~~~*/
+-- MIN,MAX,AVG,SUM,COUNT
+
+-- MIN (Belirtilen aralıktaki en küçük elemanı bulur)
+-- nortwind databasesinde Categories tablosundaki verilerden CategoryID'si en küçük olan Veriyi listeleyin ?
+SELECT * FROM Categories;
+SELECT MIN(cat.CategoryID) as 'En Küçük ID'  FROM Categories as cat;
+-- nortwind databasesinde Categories tablosundaki verilerden CategoryID'si 3 ve yukarısındaki verilerden CategoryID en küçük olan Veriyi listeleyin ?
+SELECT MIN(cat.CategoryID) as 'En Küçük ID'  FROM Categories as cat WHERE cat.CategoryID>=3;
+
+-- MAX(Belirtilen aralıktaki en büyük elemanı bulur)
+SELECT * FROM Categories;
+-- 1.YOL
+-- nortwind databasesinde Categories tablosundaki verilerden CategoryID'si en büyük olan Veriyi listeleyin ?
+SELECT MAX(cat.CategoryID) as 'En büyük ID'  FROM Categories as cat;
+-- 2.YOL
+SELECT TOP(1) * FROM Categories as cat ORDER BY cat.CategoryID desc;
+-- nortwind databasesinde Categories tablosundaki verilerden CategoryID'si 3 ve yukarısındaki verilerden CategoryID en büyük olan Veriyi listeleyin ?
+SELECT MAX(cat.CategoryID) as 'En büyük ID'  FROM Categories as cat WHERE cat.CategoryID>=3;
+
+-- AVG(Belirtilen aralığın ortalamasını bulmak)
+SELECT AVG(CategoryID) as 'ORTALAMASI' FROM Categories;
+
+-- SUM(Belirtilen aralığın toplamını bulmak)
+SELECT SUM(CategoryID) as 'ORTALAMASI' FROM Categories;
+
+-- COUNT(Belirtilen aralığın kaç tane olduğunu bulmak)
+SELECT COUNT(*) as 'TOPLAM SAYI' FROM Categories;
 
 
+/*#######################*/
 /*~~~~ CAST ~~~~*/
 
 
+/*#######################*/
 /*~~~~ WHERE: BIL(Between, In, Like) ~~~~*/
 
 
+/*#######################*/
 /*~~~~ STRING ~~~~*/
 
 

@@ -1,0 +1,39 @@
+
+
+######################################################################################
+######################################################################################
+version: '3.1'
+
+# Services
+services:
+
+  # Mssql Service
+  mssql:
+    build:
+      context: .  #Dockerfile çalışsın
+    container_name:  mssql_Server   # Container name
+    ports:
+      - "1433:1433"  #SQL Server Default port
+    environment:
+      - ENV ACCEPT_EULA=Y  #SQL Server Sözleşmeyi kabul ediyor.
+      - SA_PASSWORD=123456789 # Yönetici Şifre
+      - ENV MSSQL_PID=Developer #Express
+    volumes:
+      - mssql_data:/var/opt/mssql #Veritabanı verileri bu volüme üzerinde sakla
+    networks:
+      - mssql_network #Özel bir ağ tanımladık
+
+# Volume
+volumes: 
+  mssql_data:
+    driver: local # Verilerimizi Yerel bir depo olan driver'daki volumede sakladım
+
+# Networks
+networks:
+  mssql_network:
+    driver: bridge # Bridge tipi ağ     
+
+
+
+######################################################################################
+######################################################################################

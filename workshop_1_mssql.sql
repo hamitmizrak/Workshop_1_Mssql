@@ -307,12 +307,27 @@ select CAST ('5' as INTEGER)+'6' as 'Toplam';
 select 5 +CAST ('6' as INTEGER) as 'Toplam';
 select CAST ('5' as INTEGER) +CAST ('6' as INTEGER) as 'Toplam';
 
+
 /*#######################*/
 /*~~~~  SUBQUERY ~~~~*/
+-- IN(SUBQUERY)
+SELECT * FROM Categories;
+
+-- nortwind databasinden Categories tablosundaki categoryID'si büyük olan veriyi listeleyin ?
+
+-- 1.YOL (Manuel)
+SELECT * FROM Categories as cat where cat.CategoryID=8;
+
+-- 2.YOL (Dynamics)
+SELECT * FROM Categories as c2 where c2.CategoryID=(SELECT MAX(c1.CategoryID) FROM Categories as c1);
+SELECT * FROM Categories as c2 where c2.CategoryID=CAST((SELECT MAX(c1.CategoryID) FROM Categories as c1) as INTEGER) ;
 
 
 /*#######################*/
 /*~~~~ DATE ~~~~*/
+-- GETDATE()
+SELECT GETDATE() as 'Şu anda ki Tarih'
+
 
 
 /*#######################*/
@@ -320,12 +335,8 @@ select CAST ('5' as INTEGER) +CAST ('6' as INTEGER) as 'Toplam';
 
 
 
-
-
 /*#######################*/
 /*~~~~ WHERE: BIL(Between, In, Like) ~~~~*/
-
-
 
 
 

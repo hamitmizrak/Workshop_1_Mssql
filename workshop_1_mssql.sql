@@ -150,6 +150,11 @@ HAVING (Filtreleme) (Sum, Avg, Count, Min, Max)
 ORDER BY (Sıralama)
 */
 
+/*
+
+Yararlı Linkler: -- https://www.w3schools.com/sql/default.asp
+*/
+
 /*################################################################################ */
 use nortwind;
 
@@ -328,6 +333,26 @@ SELECT * FROM Categories as c2 where c2.CategoryID=CAST((SELECT MAX(c1.CategoryI
 -- GETDATE()
 SELECT GETDATE() as 'Şu anda ki Tarih'
 
+-- DATEADD()
+-- dateadd() = Zamanı yıl, ay için ileri tarihe göre alsın.
+select dateadd(day,1,getdate()) as 'Şu andaki zamanın ayı için 1 gün ileri'
+select dateadd(month,2,getdate()) as 'Şu andaki zamanın ayı için 2 ay ileri'
+select dateadd(year,3,getdate())  as 'Şu andaki zamanın yılı için 3 yıl ileri'
+
+-- DATEDIFF()
+-- datediff() = belirtilen 2 zaman için ara farkını bize gösterir.
+select datediff (day, '01.01.1990',getdate());
+select datediff(month,'01.01.1990',getdate());
+select datediff (year,'01.01.1990',getdate());
+
+-- DATEPART()
+-- datepart() = o zaman diliminin  hangi  hafta ,ay,yıl, olduğunu gösterir
+select datepart (hour,getdate()) as 'Saat'
+select datepart(day,getdate()) as 'Gün'
+select datepart (WEEK,getdate()) as 'Yılın kaçıncı Haftası'
+select datepart (month,getdate()) as 'Yılın kaçıncı Ay'
+select datepart (year,getdate()) 'YEAR'
+
 
 
 /*#######################*/
@@ -379,8 +404,30 @@ SELECT UPPER(SUBSTRING(cat.CategoryName,0,5))   as '1-4 arasındaki Harfler'  FR
 SELECT * FROM Categories; 
 -- 1.YOL (DQL)
 SELECT REPLACE(cat.CategoryName,'Produce','Ürün') as '1-4 arasındaki Harfler'  FROM Categories as cat; 
+
 -- 2.YOL (DML)
 SELECT cat.CategoryName FROM Categories as cat where cat.CategoryName='Produce'
+
+-- Nortwind databasesinden Categories tablosundaki 'Bilgisayar' kelimesi yerine 'Computer' olarak değiştirin.=> 
+-- keyword: subquery,update,replace
+-- 1.YOL
+use nortwind;
+update Categories SET CategoryName=REPLACE(cat.CategoryName,'Produce','Ürün') from Categories as cat
+
+-- 2.YOL
+update [nortwind].[dbo].[Categories]  SET CategoryName=replace(cat.CategoryName,'Produce','Ürün') from Categories as cat
+
+-- SORU
+-- Nortwind databasesinden Categories tablosundaki CategoryID en küçük olan veri için bütün 'e' harfi yerine 'x' yazalım.
+-- keyword: subquery,update,replace(),min()
+select * from Categories
+update [nortwind].[dbo].[Categories] SET CategoryName=replace(cat.CategoryName,'e','x') from Categories as cat where cat.CategoryID=(select min(CategoryID) from Categories)
+
+-- SORU
+-- Nortwind databasesinden Categories tablosundaki CategoryID 4 ile 5 arasındaki CategoryName bütün 'a' harfi yerine 'x' yazalım. 
+-- keyword: subquery,update,replace(),between()
+select * from Categories
+update [nortwind].[dbo].[Categories] SET CategoryName=replace(cat.CategoryName,'a','x') from Categories as cat where cat.CategoryID between 4 and 5;
 
 
 -- CONCAT
@@ -391,23 +438,6 @@ SELECT CONCAT(cat.CategoryName,'.INC')   FROM Categories as cat;
 -- REVERSE
 -- nortwind databasesinden Categories tablosundaki CategoryName'lerinden Test yazdır ve Listeyin (Masking)
 SELECT REVERSE(cat.CategoryName) as 'Ters'   FROM Categories as cat; 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

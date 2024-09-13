@@ -508,8 +508,8 @@ SELECT cat.CategoryName FROM Categories as cat where cat.CategoryName LIKE '%on%
 -- nortwind databasesinden Categories tablosundaki CategoryName'in içinden  'on'  geçen Büyükten Küçüğe Doğru  Kaç Tane Veri Var ? 
 SELECT COUNT(cat.CategoryName ) as 'Kaç Tane' FROM Categories as cat where cat.CategoryName LIKE '%on%';
 
--- nortwind databasesinden Categories tablosundaki CategoryName'in içinden en az 11 karakterli olacak, 
--- ilk harf C, ikinci harf o, üçüncü harf n dördüncü harf f ve son karakteri s olan Verileri Listeyin ?  
+-- nortwind databasesinden Categories tablosundaki CategoryName'in içinden 11 karakterli olacak, 
+-- ilk harf `C`, ikinci harf `o`, üçüncü harf `n` dördüncü harf `f` ve son karakteri s olan Verileri Listeyin ?  
 SELECT cat.CategoryName  FROM Categories as cat where cat.CategoryName LIKE 'Conf______s';
 
 
@@ -517,15 +517,49 @@ SELECT cat.CategoryName  FROM Categories as cat where cat.CategoryName LIKE 'Con
 /*################################################################################ */
 /*################################################################################ */
 /*
-DML
+DML (Data Manipulation Language)
  */
+
+-- nortwind databasesinden Categories tablosundaki CategoryName'leri Listeyin ?
+ use nortwind;
+SELECT * FROM Categories as cat;
+
+-- INSERT
+INSERT INTO Categories (CategoryName,Description) VALUES ('Bilgisayar','Msi GL65X');
+
+-- UPDATE
+UPDATE Categories SET CategoryName='Bilgisayar44',Description='Msi GL44X' WHERE CategoryID=10;
+
+-- DELETE 
+DELETE FROM Categories WHERE CategoryID=10;
 
 
 /*################################################################################ */
  /*
-DDL
+DDL (Data Definition Language)
  */
+
+-- DATABASE
+-- CREATE DATABASE
+CREATE DATABASE DenemeDB;
+
+-- DROP DATABASE
+-- 1.YOL
+DROP DATABASE DenemeDB;
+
+-- 2.YOL
+USE master
+GO
+DROP DATABASE DenemeDB;
+GO
  
+ -- RENAME DATABASE
+ EXEC sp_renamedb 'DenemeDB','YeniDB'
+
+
+
+------------
+-- TABLE
 
 /*################################################################################ */
 /*

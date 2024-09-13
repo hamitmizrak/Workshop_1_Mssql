@@ -765,7 +765,7 @@ select * from teacher
 --------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------
--- GROP BY
+-- GROP BY (Tablo içindeki Belli Kolon ÜZerinden Gruplama)
 /*
 Bir kolonumuzdaki kaç kere tekrar yaptığını, minumum değerini bulmak ,maksimum değerini bulma (aggregate function) değerler üzerinde işlem yapabilmemizi sağlar.
 
@@ -777,15 +777,10 @@ select kolon_adiXYZ ,aggregate_function from tablo_adi where şart group by kolo
 
 */
 
+use nortwind;
+SELECT * FROM employees
+
 -- Group By Örnek-1
--- Örneğin, bir "employees" (çalışanlar) tablosunda çalışanların bölümlere göre maaş ortalamalarını bulmak istediğinizi varsayalım:
-SELECT department, AVG(salary) AS avg_salary
-FROM employees
-GROUP BY department;
---Bu sorgu, "employees" tablosundaki verileri "department" sütununa göre gruplar ve her bir bölüm için ortalama maaşı hesaplar. Sonuçlar, bölüm başına bir satırda görünecektir.
-
-
--- Group By Örnek-2
 -- Aşağıdaki örnek, "Customers" tablosundaki müşterileri şehirlerine göre gruplar ve her bir şehirde kaç müşteri olduğunu sayar:
 SELECT City, COUNT(*) AS CustomerCount
 FROM Customers
@@ -793,7 +788,7 @@ GROUP BY City;
 --Bu sorgu, "Customers" tablosundaki verileri "City" (şehir) sütununa göre gruplar ve her bir grup için o şehirde kaç müşteri olduğunu sayar. Sonuçlar, şehir başına bir satırda görünecektir.
 
 
--- Group By Örnek-3
+-- Group By Örnek-2
 --Tablodaki verileri belirli bir sütuna göre gruplamak ve bu gruplar üzerinde toplu işlemler yapmak için GROUP BY ifadesi kullanılır. 
 --Örneğin, bir "Orders" (Siparişler) tablosundaki siparişleri müşteri numaralarına göre gruplamak ve her müşterinin kaç siparişi olduğunu bulmak isteyebilirsiniz.
 --Aşağıdaki örnek, "Orders" tablosundaki siparişleri müşteri numaralarına göre gruplar ve her bir müşterinin kaç siparişi olduğunu sayar:
@@ -803,11 +798,18 @@ GROUP BY CustomerID;
 --Bu sorgu, "Orders" tablosundaki verileri "CustomerID" (Müşteri Numarası) sütununa göre gruplar ve her bir müşteri için kaç tane sipariş olduğunu sayar. Sonuçlar, müşteri numarası başına bir satırda görünecektir.
 
 
+-- Group By Örnek-3
+-- Örneğin, bir "employees" (çalışanlar) tablosunda çalışanların bölümlere göre maaş ortalamalarını bulmak istediğinizi varsayalım:
+SELECT department, AVG(salary) AS avg_salary
+FROM employees
+GROUP BY department;
+--Bu sorgu, "employees" tablosundaki verileri "department" sütununa göre gruplar ve her bir bölüm için ortalama maaşı hesaplar. Sonuçlar, bölüm başına bir satırda görünecektir.
+
+
 
 
 ------------------------------------------------------------------------------------------------------------------------
--- HAVING 
-
+-- HAVING ( Group By ile oluşturduğumuz  Belli Kolon Üzerindeki Filtrelemedir)
 -- Having Örnek-1
 -- Örnek olarak, bir müşteri siparişleri tablosunda, her müşterinin toplam sipariş miktarını bulalım ve sadece toplam sipariş miktarı 1000'den büyük olan müşterileri listeleyelim:
 SELECT customer_id, SUM(order_amount) AS total_order_amount
@@ -841,7 +843,9 @@ HAVING AVG(pro.UnitPrice) > 30;
 -- JOIN
 
 -- Join Örnek-1
---MSSQL'de JOIN, ilişkisel veritabanlarında tablolar arasında ilişki kurmayı sağlayan bir SQL operatörüdür. JOIN operatörü, ilişkili tablolardan belirli sütunları almanıza ve bu tabloları belirli bir kriter veya koşula göre birleştirmenize olanak tanır. Bu, ilişkisel veritabanlarında verilerin etkili bir şekilde birleştirilmesini sağlar.
+--MSSQL'de JOIN, ilişkisel veritabanlarında tablolar arasında ilişki kurmayı sağlayan bir SQL operatörüdür. 
+--JOIN operatörü, ilişkili tablolardan belirli sütunları almanıza ve bu tabloları belirli bir kriter veya koşula göre birleştirmenize olanak tanır. 
+--Bu, ilişkisel veritabanlarında verilerin etkili bir şekilde birleştirilmesini sağlar.
 --Örnek olarak, bir müşteri tablosu ve bir sipariş tablosu üzerinden JOIN işlemi gerçekleştirelim:
 
 --customers tablosu:

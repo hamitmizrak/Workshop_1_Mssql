@@ -1,39 +1,140 @@
 
+# Docker Üzerinden MSSQL Server ile birlikte GUI(Graphics User Interface) ile Docker Compose Üzeridnen bağlanmak için;
+# Mssqlş Server için çok yaygın olarak kullanılan SSMS(SQL Server MAnagement Studio), Azure Data Studio,  DBeaver
+# DİKKATTTTT: SSMS sadece ama sadece Windows işletim sisteminde çalışıyor ve Docker üzerinden SSMS çalıştırmak çok zordur.
+# Çözüm olarak DBeaver'ı CloudBeaver sürümü üzerinden web tabanlı GUI araçı üzerinden devam edelim.
 
-######################################################################################
-######################################################################################
+# docker ps
+# docker logs mssql_server
+# docker logs dbeaver
+
+#SA Kullanıcısı: SA Kullanıcısı: SA kullanıcısı varsayılan olarak en üst düzey yetkilere sahiptir. 
+# Üretim ortamlarında SA kullanıcısının parolasını güvenli bir yerde saklayın ve mümkünse kullanımı kısıtlayın.
+# Server: localhost,1444
+# Username: SA
+# Password: YourStrong!Passw0rd
+
+# HamitMizrak Kullanıcısı:
+# Server: localhost,1444
+# Username: HamitMizrak
+# Password: HamitMizrak
+
+#######################################################################################################################
+#######################################################################################################################
+
+# docker-compose --version
+# docker-compose -v
+# docker-compose up
+# docker-compose up -d
+# docker-compose -f Custom_Docker_compose.yml up
+# docker-compose -f Custom_Docker_compose.yml up -d
+# docker-compose down
+# docker-compose restart
+# docker-compose ps
+
+# restart: on-failure
+# restart: no => default olandır. Yani docker compose otomatik olarak restart yapsın
+# restart: unless-stopped => Konteynar durduğunda otomatik olarak yeniden başlasın
+# restart: always => Konteynar her zaman otomatik başlasın
+# restart: on-failure => konteryanar çökmesi halinde otomatik başlasın
+
+#######################################################################################################################
+#######################################################################################################################
+# DBear 
+# MSSQL Server'a Bağlanın:
+# DBeaver arayüzünde "Create new connection" veya "Yeni bağlantı oluştur" seçeneğini seçin.
+# Database olarak SQL Server'ı seçin.
+# Bağlantı ayarlarını aşağıdaki gibi girin:
+# Host: mssql_service (Docker ağı içinde servis adı)
+# Port: 1444
+# Database: blog (veya bağlanmak istediğiniz veritabanı)
+# Username: SA
+# Password: 123456789
+# Bağlantıyı test edin ve kaydedin.
+
+#######################################################################################################################
+#######################################################################################################################
+# Docker compose dosyasının sürüm numarasını gösterir
 version: '3.1'
 
+# Services: Docker Compose ile çalışacak hizmetleri tanımlar
 # Services
 services:
 
   # Mssql Service
-  mssql:
-    build:
-      context: .  #Dockerfile çalışsın
-    container_name:  mssql_Server   # Container name
+  mssql_service:
+    build: .
+    #build:
+      #context: .
+      #dockerfile: NodeDockerfile
+    container_name: mssql_container  # Container name
+    image: mssql_image
+    restart: always
     ports:
-      - "1433:1433"  #SQL Server Default port
+      - "1444:1433"  #SQL Server Default port
     environment:
       - ENV ACCEPT_EULA=Y  #SQL Server Sözleşmeyi kabul ediyor.
-      - SA_PASSWORD=123456789 # Yönetici Şifre
-      - ENV MSSQL_PID=Developer #Express
+      - SA_PASSWORD=123456789 # Yönetici Şifre  , Server: localhost,1444, Username: SA
+      - ENV MSSQL_PID=Developer # Express
     volumes:
-      - mssql_data:/var/opt/mssql #Veritabanı verileri bu volüme üzerinde sakla
+      - mssql_data:/var/opt/mssql # Veritabanı verileri bu volüme üzerinde sakla
     networks:
-      - mssql_network #Özel bir ağ tanımladık
+      - mssql_network # Özel bir ağ tanımladık
+
+# Dbeaver 
+# server url: http://localhost:8978
+# username: rootroot
+# password: Rootroot44.
+
+  # Dbeaver Service
+  dbeaver_service:
+    image: dbeaver/cloudbeaver:latest # DockerHub Registry
+    container_name: dbeaver_container   # Container name
+    restart: always
+    ports:
+      - "8978:8978"  # DBeaver'in Web arayüzü: http://localhost:8978
+    environment:
+      - CB_INIT_CONFIG=true
+    volumes:
+      - dbeaver_data:/opt/cloudbeaver/workspace #Veritabanı verileri bu volüme üzerinde sakla
+    depends_on:
+      - mssql_service # DBeaver servisi çalışması için mutlaka `mssql_service` çalışması gerekiyor
+    networks:
+      - mssql_network # Özel bir ağ tanımladık      
 
 # Volume
 volumes: 
   mssql_data:
     driver: local # Verilerimizi Yerel bir depo olan driver'daki volumede sakladım
+  dbeaver_data:
+    driver: local # Verilerimizi Yerel bir depo olan driver'daki volumede sakladım  
 
 # Networks
 networks:
   mssql_network:
+    name: mssql_network
     driver: bridge # Bridge tipi ağ     
 
 
 
 ######################################################################################
 ######################################################################################
+# docker ps
+# winpty docker container  exec -it  blog bash
+# ls -al
+# docker-compose down
+# docker volume ls
+
+# winpty docker run -it --rm \
+# -v docker_apache_tomcat-conf://usr/local/tomcat/conf  \
+# -v docker_apache_tomcat-logs://usr/local/tomcat/logs \
+# -v docker_apache_tomcat-webapps://usr/local/tomcat/webapps \
+# blog_react bash
+
+
+# docker run: Yeni bir container çalıştırır.
+# -it: İnteraktif terminal modunda çalıştırır.
+# --rm: Container kapatıldığında otomatik olarak siler.
+# -v tomcat-logs:/data: tomcat-logs volume'unu container içindeki /data dizinine bağlar.
+# ubuntu: Ubuntu tabanlı bir container çalıştırır.
+# bash: Container içinde bash shell çalıştırır.

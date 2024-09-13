@@ -332,6 +332,82 @@ SELECT GETDATE() as 'Şu anda ki Tarih'
 
 /*#######################*/
 /*~~~~ STRING ~~~~*/
+SELECT * FROM Categories; 
+
+-- LISTELEMEK
+-- nortwind databasesinden Categories tablosundaki CategoryName'leri Listeyin ?
+SELECT cat.CategoryName FROM Categories as cat;
+
+
+-- LENGTH
+-- nortwind databasesinden Categories tablosundaki CategoryName'lerin harf sayısını hesaplatan script yazınız ?
+SELECT LEN(cat.CategoryName) as 'Harf Sayısı' FROM Categories as cat;
+
+
+-- UPPER
+-- nortwind databasesinden Categories tablosundaki CategoryName'leri BÜYÜK harflere çevirerek Listeyin ?
+SELECT UPPER(cat.CategoryName) as 'BÜYÜK Harfler'  FROM Categories as cat; 
+
+
+-- LOWER
+-- nortwind databasesinden Categories tablosundaki CategoryName'leri küçük harflere çevirerek Listeyin ?
+SELECT LOWER(cat.CategoryName) as 'küçük Harfler'  FROM Categories as cat; 
+
+
+-- ltrim
+-- nortwind databasesinden Categories tablosundaki CategoryName'lerinde eğer soldan boşluklar varsa sil ve Listeyin (Validation)
+SELECT ltrim(cat.CategoryName) as 'Soldaki Boşluklar Silindi'  FROM Categories as cat; 
+
+
+-- RTRIM
+-- nortwind databasesinden Categories tablosundaki CategoryName'lerinde eğer sağdan boşluklar varsa sil ve Listeyin (Validation)
+SELECT RTRIM(cat.CategoryName) as 'Soldaki Boşluklar Silindi'  FROM Categories as cat; 
+
+
+-- SUBSTRING
+-- nortwind databasesinden Categories tablosundaki CategoryName'lerinde ilk 4 harfini gösterin ve Listeyin (Masking)
+SELECT SUBSTRING(cat.CategoryName,0,5) as '1-4 arasındaki Harfler'  FROM Categories as cat; -- 0<=SUBSTRING <=5-1
+
+
+-- İç içe Function kullanımı
+-- nortwind databasesinden Categories tablosundaki CategoryName'lerinde ilk 4 harfini gösterin ve BÜYÜK Harfe çevrilsin ve  Listeyin (Masking)
+SELECT UPPER(SUBSTRING(cat.CategoryName,0,5))   as '1-4 arasındaki Harfler'  FROM Categories as cat; -- 0<=SUBSTRING <=5-1
+
+
+-- REPLACE
+-- nortwind databasesinden Categories tablosundaki CategoryName'lerinden `Produce` kelimelerini `Ürün` ile değiştirin ve Listeyin (Masking)
+SELECT * FROM Categories; 
+-- 1.YOL (DQL)
+SELECT REPLACE(cat.CategoryName,'Produce','Ürün') as '1-4 arasındaki Harfler'  FROM Categories as cat; 
+-- 2.YOL (DML)
+SELECT cat.CategoryName FROM Categories as cat where cat.CategoryName='Produce'
+
+
+-- CONCAT
+-- nortwind databasesinden Categories tablosundaki CategoryName'lerinden sonuna `INC` ekleyin ve Listeyin (Masking)
+SELECT CONCAT(cat.CategoryName,'.INC')   FROM Categories as cat; 
+
+
+-- REVERSE
+-- nortwind databasesinden Categories tablosundaki CategoryName'lerinden Test yazdır ve Listeyin (Masking)
+SELECT REVERSE(cat.CategoryName) as 'Ters'   FROM Categories as cat; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

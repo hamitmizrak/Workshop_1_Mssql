@@ -444,6 +444,73 @@ SELECT REVERSE(cat.CategoryName) as 'Ters'   FROM Categories as cat;
 /*#######################*/
 /*~~~~ WHERE: BIL(Between, In, Like) ~~~~*/
 
+-- BETWEEN(ARASINDA)
+-- LISTELEMEK
+-- nortwind databasesinden Categories tablosundaki CategoryName'leri Listeyin ?
+SELECT * FROM Categories as cat;
+
+-- nortwind databasesinden Categories tablosundaki CategoryID 3 ve yukarısındaki kaç tane veri var ?
+SELECT count(*) as 'Kaç tane' FROM Categories as cat where cat.CategoryID>=3;
+
+-- nortwind databasesinden Categories tablosundaki CategoryID 3 ve yukarısındaki verileri Listeyin ?
+SELECT * FROM Categories as cat where cat.CategoryID>=3;
+
+-- nortwind databasesinden Categories tablosundaki CategoryID 3<=DATA<=5 arasındaki verileri Listeyin ?
+SELECT * FROM Categories as cat where cat.CategoryID BETWEEN 3 and 5 ;
+
+-- nortwind databasesinden Categories tablosundaki CategoryID 3<=DATA<=5 arasındaki verileri CategoryID'sine göre Küçükten Büyüğe Doğru Listeyin ?
+SELECT * FROM Categories as cat where cat.CategoryID BETWEEN 3 and 5 ORDER BY cat.CategoryID asc;
+
+-- nortwind databasesinden Categories tablosundaki CategoryID 3<=DATA<=5 arasındaki verileri CategoryID'sine göre Büyükten Küçüğe Doğru Listeyin ?
+SELECT * FROM Categories as cat where cat.CategoryID BETWEEN 3 and 5 ORDER BY cat.CategoryID desc;
+
+-- nortwind databasesinden Categories tablosundaki CategoryID 3<=DATA<=5 arasındaki verileri CategoryID'sine göre Büyükten Küçüğe Doğru kaç tane veri var ? ?
+SELECT COUNT(*) 'Kaç Tane' FROM Categories as cat where cat.CategoryID BETWEEN 3 and 5 ;
+
+-----------------
+-- IN(SUBQUERY)
+SELECT * FROM Categories;
+
+-- nortwind databasinden Categories tablosundaki categoryID'si büyük olan veriyi listeleyin ?
+
+-- 1.YOL (Manuel)
+SELECT * FROM Categories as cat where cat.CategoryID=8;
+
+-- 2.YOL (Dynamics)
+SELECT * FROM Categories as c2 where c2.CategoryID=(SELECT MAX(c1.CategoryID) FROM Categories as c1);
+SELECT * FROM Categories as c2 where c2.CategoryID=CAST((SELECT MAX(c1.CategoryID) FROM Categories as c1) as INTEGER) ;
+
+
+-----------------
+-- LIKE(FİLTRELEMEK)
+
+-- nortwind databasesinden Categories tablosundaki CategoryName'leri Listeyin ?
+SELECT * FROM Categories as cat;
+
+-- nortwind databasesinden Categories tablosundaki CategoryName'inde 'C' ile başlayan Verileri Listeyin ?
+SELECT *  FROM Categories as cat where cat.CategoryName LIKE 'C%';
+SELECT cat.CategoryName  FROM Categories as cat where cat.CategoryName LIKE 'C%';
+
+
+-- nortwind databasesinden Categories tablosundaki CategoryName'inde 's' ile biten Verileri Listeyin ?
+SELECT cat.CategoryName  FROM Categories as cat where cat.CategoryName LIKE '%s';
+
+-- nortwind databasesinden Categories tablosundaki CategoryName'inde 's' ile biten Veri Kaç tane veri vardır ? 
+SELECT COUNT(cat.CategoryName) as 'Kaç Tane'  FROM Categories as cat where cat.CategoryName LIKE '%s';
+
+
+-- nortwind databasesinden Categories tablosundaki CategoryName'in içinden  'on'  geçen  Verileri Listeyin ?
+SELECT cat.CategoryName FROM Categories as cat where cat.CategoryName LIKE '%on%';
+
+-- nortwind databasesinden Categories tablosundaki CategoryName'in içinden  'on'  geçen Büyükten Küçüğe Doğru  Verileri Listeyin ?
+SELECT cat.CategoryName FROM Categories as cat where cat.CategoryName LIKE '%on%'  ORDER BY cat.CategoryID desc;
+
+-- nortwind databasesinden Categories tablosundaki CategoryName'in içinden  'on'  geçen Büyükten Küçüğe Doğru  Kaç Tane Veri Var ? 
+SELECT COUNT(cat.CategoryName ) as 'Kaç Tane' FROM Categories as cat where cat.CategoryName LIKE '%on%';
+
+-- nortwind databasesinden Categories tablosundaki CategoryName'in içinden en az 11 karakterli olacak, 
+-- ilk harf C, ikinci harf o, üçüncü harf n dördüncü harf f ve son karakteri s olan Verileri Listeyin ?  
+SELECT cat.CategoryName  FROM Categories as cat where cat.CategoryName LIKE 'Conf______s';
 
 
 /*################################################################################ */

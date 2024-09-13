@@ -403,18 +403,12 @@ SELECT UPPER(SUBSTRING(cat.CategoryName,0,5))   as '1-4 arasındaki Harfler'  FR
 -- nortwind databasesinden Categories tablosundaki CategoryName'lerinden `Produce` kelimelerini `Ürün` ile değiştirin ve Listeyin (Masking)
 SELECT * FROM Categories; 
 -- 1.YOL (DQL)
-SELECT REPLACE(cat.CategoryName,'Produce','Ürün') as '1-4 arasındaki Harfler'  FROM Categories as cat; 
+SELECT REPLACE(cat.CategoryName,'Produce','Ürün') as 'Değiştir'  FROM Categories as cat; 
 
 -- 2.YOL (DML)
-SELECT cat.CategoryName FROM Categories as cat where cat.CategoryName='Produce'
-
--- Nortwind databasesinden Categories tablosundaki 'Bilgisayar' kelimesi yerine 'Computer' olarak değiştirin.=> 
--- keyword: subquery,update,replace
--- 1.YOL
-use nortwind;
 update Categories SET CategoryName=REPLACE(cat.CategoryName,'Produce','Ürün') from Categories as cat
 
--- 2.YOL
+-- 3.YOL (DML)
 update [nortwind].[dbo].[Categories]  SET CategoryName=replace(cat.CategoryName,'Produce','Ürün') from Categories as cat
 
 -- SORU
@@ -480,6 +474,15 @@ SELECT * FROM Categories as cat where cat.CategoryID=8;
 SELECT * FROM Categories as c2 where c2.CategoryID=(SELECT MAX(c1.CategoryID) FROM Categories as c1);
 SELECT * FROM Categories as c2 where c2.CategoryID=CAST((SELECT MAX(c1.CategoryID) FROM Categories as c1) as INTEGER) ;
 
+-- Nortwind databasesinden Categories tablosundaki 'Bilgisayar' kelimesi yerine 'Computer' olarak değiştirin.=> 
+-- keyword: subquery,update,replace
+-- 1.YOL
+use nortwind;
+update Categories SET CategoryName=REPLACE(cat.CategoryName,'Produce','Ürün') from Categories as cat
+
+-- 2.YOL
+update [nortwind].[dbo].[Categories]  SET CategoryName=replace(cat.CategoryName,'Produce','Ürün') from Categories as cat
+
 
 -----------------
 -- LIKE(FİLTRELEMEK)
@@ -541,22 +544,367 @@ DDL (Data Definition Language)
 
 -- DATABASE
 -- CREATE DATABASE
-CREATE DATABASE DenemeDB;
+CREATE DATABASE ScriptDb;
 
 -- DROP DATABASE
 -- 1.YOL
-DROP DATABASE DenemeDB;
+DROP DATABASE ScriptDb;
 
 -- 2.YOL
 USE master
 GO
-DROP DATABASE DenemeDB;
+DROP DATABASE ScriptDb;
 GO
  
  -- RENAME DATABASE
- EXEC sp_renamedb 'DenemeDB','YeniDB'
+ EXEC sp_renamedb 'ScriptDb','YeniDB'
+
+------------
+-- DATA TYPES
+/* 
+
+Sıklıkla Kullanılan Data Types;
+
+Tamsayılarda: int
+
+Virgüllü Sayılarda: float
+
+Kelimelerde: nvarchar
+
+Tarih: Date veya DateTime
+
+*/
+
+-- TAMSAYI
+/*
+TINYINT: Çok küçük tamsayı değerlerini saklamak için kullanılır. Örneğin, 0 ile 255 arasındaki değerler TINYINT türünde saklanabilir. Boyut olarak 1 byte alana sahiptir.
+0<=TINYINT<=255
+
+SMALLINT: Küçük tamsayı değerlerini saklamak için kullanılır. INT'ten daha küçük tamsayı değerlerini saklayabilir. Boyut olarak 2 byte alana sahiptir.
+
+INT: Tamsayı değerleri saklamak için kullanılır. Örneğin, 1, 2, -100, 0 gibi değerler INT türünde saklanabilir. Boyut olarak 4 byte alana sahiptir.
+
+BIGINT: Büyük tamsayı değerlerini saklamak için kullanılır. INT'ten daha büyük tamsayı değerlerini saklayabilir. Boyut olarak 8 byte alana sahiptir.
+
+TINYINT<SMALLINT<INT<BIGINT
+*/
+
+-- VİRGüLLÜ SAYI
+/* 
+DECIMAL(p, s) veya NUMERIC(p, s): Ondalık sayıları saklamak için kullanılır. p, toplam basamak sayısını (ondalık noktadan önce ve sonra toplam basamak sayısı) belirtirken s, ondalık basamak sayısını belirtir.
+
+FLOAT: Kayan nokta sayılarını saklamak için kullanılır. Büyük veya küçük ondalık sayılar için uygundur.
+Örnek: 44.10
+
+REAL: İkili hassaslıkta kayan nokta sayılarını saklamak için kullanılır. FLOAT'tan daha düşük bir hassasiyete sahiptir.
+Örnek: 44.101222222
+*/
+
+-- KELİMESEL
+/*
+
+VARCHAR(n) veya NVARCHAR(n): Değişken uzunluklu karakter dizilerini saklamak için kullanılır. 
+n, maksimum karakter sayısını belirtir. 
+
+VARCHAR, ASCII karakterlerini (sadece ingilizce harfler) Örnek: VARCHAR(55)
+
+NVARCHAR ise Unicode karakterlerini saklar. (Türkçe, Çince, Arapça vs) Örnek: NVARCHAR(55)
+
+Dikkat: nvarchar Dynamics bir datatypes'dir.
+
+Örnek  nvarchar(255) Anlamı: En fazla 255 karakter kullanabilirsin. ancak eğer siz 10 karakter kullanırsanız geriye kalan 255-10= 245 kadar bit kadar yer kaplamıyor.
+
+CHAR(n) veya NCHAR(n): Sabit uzunluklu karakter dizilerini saklamak için kullanılır. n, sabit karakter dizisinin uzunluğunu belirtir.
+Daha hızlı ve ilkeldir.
+Dinamik değildir.
+*/
+
+-- TARİH 
+/*
+DATE: Tarih değerlerini saklamak için kullanılır. YYYY-MM-DD biçimindedir.
+
+TIME: Saat değerlerini saklamak için kullanılır. HH:MM:SS.SSS biçimindedir.
+
+DATETIME: Tarih ve saat değerlerini saklamak için kullanılır. YYYY-MM-DD HH:MM:SS.SSS biçimindedir.
+
+*/
+
+--  BIT AND BINARY
+/*
+
+BIT: Mantıksal (boolean) değerleri saklamak için kullanılır. 0 veya 1 değerlerini alır.
+
+BINARY(n) veya VARBINARY(n): Sabit veya değişken uzunluklu binary verileri saklamak için kullanılır.
+
+Binary: 0 ve 1'lerdan oluşan
+
+*/
+
+-- Mssql üzerinde tablo oluşturmak
+-- Script üzerinde tablo oluşturmak
+
+--------------------------------------------------------------------------------------------------
+CREATE DATABASE ScriptDb;
+
+-- TRUNCATE
+-- truncate: Tablonun içeriğini temizlemek için kullanıyoruz.
+select * from [ScriptDb].[dbo].[Person]
+truncate table [ScriptDb].[dbo].[Person]
+
+--------------------------------------------------------------------------------------------------
+
+-- TABLE SCRIPT
+-- 1.TABLE
+use ScriptDb;
+create table EmployeesData(
+	EmployeeID INT  PRIMARY KEY IDENTITY NOT NULL,
+	FirstName NVARCHAR(50),
+	LastName NVARCHAR(50),
+	Department NVARCHAR(50),
+	Salary DECIMAL(10,2)
+);
+select * from EmployeesData
+
+/*
+EmployeeID INT  PRIMARY KEY IDENTITY NOT NULL,
+INT: data type (tam sayı)
+PRIMARY KEY: Birincil anahtar
+IDENTITY: AI Otomatik artmak için kullanırız. (Unique olması için
+NOT NULL: Boş geçilemez 
+*/ 
+
+-- 2.TABLE
+-- Eğer benim verdiğim tablo database'de varsa ekleme yoksa ekle
+-- Constraints: PRIMARY KEY,Foreign Key, UNIQUE, DEFAULT
+use ScriptDb;
+if not exists (select * from sysobjects where name='notes' and xtype='U')
+    CREATE TABLE student (
+	StudentId INT PRIMARY KEY IDENTITY  NOT NULL,
+	studentName nvarchar(50)  NOT NULL,
+	studentSurname nvarchar(50) NOT NULL,
+	city varchar(50) NOT NULL,
+	Phone_Number varchar(20) UNIQUE NOT NULL,
+	studentVizeNotes int NOT NULL,
+	studentFinalNotes int NOT NULL,
+	Registration_Date date,
+	created_at DATETIME NOT NULL  DEFAULT CURRENT_TIMESTAMP,
+);
+go
+
+insert into 
+student(studentName,studentSurname,city,Phone_Number,studentVizeNotes,studentFinalNotes,Registration_Date) 
+values
+('Adı-1','Soyadı-1','Bingöl','11122233',80,80,'2024-03-28');
+
+insert into 
+student(studentName,studentSurname,city,Phone_Number,studentVizeNotes,studentFinalNotes,Registration_Date) 
+values
+('Adı-2','Soyadı-2','Malatya','11122233',70,70,'2024-03-28');
+
+select * from [ScriptDb].[dbo].[student] as stu;
 
 
+-- 3.TABLE
+-- Kategoriler tablosu
+CREATE TABLE Categories (
+    CategoryID INT PRIMARY KEY IDENTITY NOT NULL,
+    CategoryName NVARCHAR(100) NOT NULL,
+    Description NVARCHAR(MAX)
+);
+
+-- Ürünler tablosu
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY IDENTITY NOT NULL, -- PK: Primary Key
+    ProductName NVARCHAR(100) NOT NULL,
+    CategoryID INT, -- FK: Foreign Key
+    Price DECIMAL(10, 2),
+    StockQuantity INT,
+    Description NVARCHAR(MAX),
+    CONSTRAINT FK_Products_Categories FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
+);
+
+
+----------------------------------------------------------------------------------------------------------------------
+-- Hayali Sutun
+select *  from student;
+select (stu.studentVizeNotes*0.4+stu.studentFinalNotes*0.6) as result from [ScriptDb].[dbo].[student] as stu;
+
+
+--------------------------------------------------------------------------------------------------
+-- UNION : aynı sutun sayısına sahip tabloları alt alta görmek istediğimizde kullanıyoruz.
+-- UNIONALL (datatype, script, table, PK)
+use ScriptDb;
+if not exists (select * from sysobjects where name='notes' and xtype='U')
+    CREATE TABLE teacher (
+	StudentId INT PRIMARY KEY IDENTITY NOT NULL,
+	studentName varchar(50) NOT NULL,
+	studentSurname varchar(50) NOT NULL,
+	city varchar(50) NOT NULL,
+	Phone_Number varchar(20) NOT NULL,
+	studentVizeNotes int NOT NULL,
+	studentFinalNotes int NOT NULL,
+	Registration_Date date,
+	created_at DATETIME NOT NULL  DEFAULT CURRENT_TIMESTAMP,
+);
+go
+
+insert into 
+student(studentName,studentSurname,city,Phone_Number,studentVizeNotes,studentFinalNotes,Registration_Date) 
+values
+('Adı-1','Soyadı-1','Bingöl','11122233',80,80,'2024-03-28');
+
+insert into 
+teacher(studentName,studentSurname,city,Phone_Number,studentVizeNotes,studentFinalNotes,Registration_Date) 
+values
+('Adı-22','Soyadı-22','Bingöl','11122233',80,80,'2024-03-28');
+
+select * from student
+union
+select * from teacher
+
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+-- GROP BY
+/*
+Bir kolonumuzdaki kaç kere tekrar yaptığını, minumum değerini bulmak ,maksimum değerini bulma (aggregate function) değerler üzerinde işlem yapabilmemizi sağlar.
+
+group by: Kolonun gruplama yapabilmemize olanak sağlar.
+
+Aggregate: count, max, min, sum, avg
+
+select kolon_adiXYZ ,aggregate_function from tablo_adi where şart group by kolon_adiXYZ;
+
+*/
+
+-- Group By Örnek-1
+-- Örneğin, bir "employees" (çalışanlar) tablosunda çalışanların bölümlere göre maaş ortalamalarını bulmak istediğinizi varsayalım:
+SELECT department, AVG(salary) AS avg_salary
+FROM employees
+GROUP BY department;
+--Bu sorgu, "employees" tablosundaki verileri "department" sütununa göre gruplar ve her bir bölüm için ortalama maaşı hesaplar. Sonuçlar, bölüm başına bir satırda görünecektir.
+
+
+-- Group By Örnek-2
+-- Aşağıdaki örnek, "Customers" tablosundaki müşterileri şehirlerine göre gruplar ve her bir şehirde kaç müşteri olduğunu sayar:
+SELECT City, COUNT(*) AS CustomerCount
+FROM Customers
+GROUP BY City;
+--Bu sorgu, "Customers" tablosundaki verileri "City" (şehir) sütununa göre gruplar ve her bir grup için o şehirde kaç müşteri olduğunu sayar. Sonuçlar, şehir başına bir satırda görünecektir.
+
+
+-- Group By Örnek-3
+--Tablodaki verileri belirli bir sütuna göre gruplamak ve bu gruplar üzerinde toplu işlemler yapmak için GROUP BY ifadesi kullanılır. 
+--Örneğin, bir "Orders" (Siparişler) tablosundaki siparişleri müşteri numaralarına göre gruplamak ve her müşterinin kaç siparişi olduğunu bulmak isteyebilirsiniz.
+--Aşağıdaki örnek, "Orders" tablosundaki siparişleri müşteri numaralarına göre gruplar ve her bir müşterinin kaç siparişi olduğunu sayar:
+SELECT CustomerID, COUNT(*) AS OrderCount
+FROM Orders
+GROUP BY CustomerID;
+--Bu sorgu, "Orders" tablosundaki verileri "CustomerID" (Müşteri Numarası) sütununa göre gruplar ve her bir müşteri için kaç tane sipariş olduğunu sayar. Sonuçlar, müşteri numarası başına bir satırda görünecektir.
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+-- HAVING 
+
+-- Having Örnek-1
+-- Örnek olarak, bir müşteri siparişleri tablosunda, her müşterinin toplam sipariş miktarını bulalım ve sadece toplam sipariş miktarı 1000'den büyük olan müşterileri listeleyelim:
+SELECT customer_id, SUM(order_amount) AS total_order_amount
+FROM orders
+GROUP BY customer_id
+HAVING SUM(order_amount) > 1000;
+-- Bu sorgu, siparişler tablosundaki her müşterinin toplam sipariş miktarını hesaplar, ardından bu miktarı 1000'den büyük olan müşterileri listeler.
+
+
+-- Having Örnek-2
+-- Örnek olarak, bir işletmenin çalışanlarının departmanlarına göre ortalama maaşlarını hesaplayalım ve sadece ortalama maaşı belirli bir değerden yüksek olan departmanları listeleyelim:
+SELECT department, AVG(salary) AS avg_salary
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 50000;
+-- Bu sorgu, employees tablosundaki verileri departmanlara göre gruplar, her bir grup için ortalama maaşı hesaplar, ardından ortalama maaşı 50000'den büyük olan grupları seçer ve sonuç olarak bu grupların departmanlarını ve ortalama maaşlarını gösterir.
+
+
+-- GROP BY AND HAVING
+select * from Products
+
+SELECT pro.ProductName, AVG(pro.UnitPrice) AS price
+FROM Products as pro
+GROUP BY pro.ProductName
+HAVING AVG(pro.UnitPrice) > 30;
+
+
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+-- JOIN
+
+-- Join Örnek-1
+--MSSQL'de JOIN, ilişkisel veritabanlarında tablolar arasında ilişki kurmayı sağlayan bir SQL operatörüdür. JOIN operatörü, ilişkili tablolardan belirli sütunları almanıza ve bu tabloları belirli bir kriter veya koşula göre birleştirmenize olanak tanır. Bu, ilişkisel veritabanlarında verilerin etkili bir şekilde birleştirilmesini sağlar.
+--Örnek olarak, bir müşteri tablosu ve bir sipariş tablosu üzerinden JOIN işlemi gerçekleştirelim:
+
+--customers tablosu:
+--customer_id | name         | email
+-------------------------------------
+--1           | John Doe     | john@example.com
+--2           | Jane Smith   | jane@example.com
+--3           | Alice Johnson| alice@example.com
+
+
+--orders tablosu:
+--order_id | customer_id | product      | quantity
+----------------------------------------------
+--101      | 1           | Laptop       | 1
+--102      | 2           | Smartphone   | 2
+--103      | 1           | Headphones   | 1
+--Bu tablolarda, customer_id alanı customers tablosunda müşterileri orders tablosundaki siparişlerle ilişkilendirir.
+
+
+-------------------------------------------------------------------------------------------------------------
+select * from Categories;
+select * from Products;
+
+-- select KolonAdı,Aggregate from Categories where +BIL+ Group by+Having+Order By 
+-- 1.YOL
+select * from Categories as cat inner join Products as pro ON cat.CategoryID=pro.CategoryID;
+select cat.CategoryID,cat.CategoryName,pro.ProductName from Categories as cat inner join Products as pro ON cat.CategoryID=pro.CategoryID;
+
+-- LEFT JOIN
+select cat.CategoryID,cat.CategoryName,pro.ProductName from Categories as cat left join Products as pro ON cat.CategoryID=pro.CategoryID;
+
+-- RIGHT JOIN
+select cat.CategoryID,cat.CategoryName,pro.ProductName from Categories as cat right join Products as pro ON cat.CategoryID=pro.CategoryID;
+
+-- 2.YOL
+select * from Products as pro  inner join Categories as cat  ON cat.CategoryID=pro.CategoryID;
+select cat.CategoryID,cat.CategoryName,pro.ProductName from Products as pro  inner join Categories as cat  ON cat.CategoryID=pro.CategoryID;
+
+-- LEFT JOIN
+select cat.CategoryID,cat.CategoryName,pro.ProductName from Products as pro  left join Categories as cat  ON cat.CategoryID=pro.CategoryID;
+
+-- RIGHT JOIN
+select cat.CategoryID,cat.CategoryName,pro.ProductName from Products as pro  right join Categories as cat  ON cat.CategoryID=pro.CategoryID;
+
+
+
+
+
+-- PK: ProductID
+select * from Categories;
+
+-- PK: ProductID
+-- FK: CategoryID
+select * from Products;
+
+-- Inner Join
+select cat.CategoryName, pro.ProductName from Categories as cat inner join Products as pro ON cat.CategoryID=pro.CategoryID;
+
+-- Left Join
+select cat.CategoryName, pro.ProductName from Categories as cat left join Products as pro ON cat.CategoryID=pro.CategoryID;
+
+-- Right Join
+select cat.CategoryName, pro.ProductName from Categories as cat right join Products as pro ON cat.CategoryID=pro.CategoryID;
 
 ------------
 -- TABLE
